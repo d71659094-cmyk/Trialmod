@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "savelyich_trials:item/kinetic_blade_shield"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "savelyich_trials:item/kinetic_blade_shield_blocking"
+    }
+  ]
+}

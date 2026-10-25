@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "savelyich_trials:item/cursed_totem_shotgun"
+  }
+}

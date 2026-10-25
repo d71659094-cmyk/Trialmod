@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "savelyich_trials:item/spring_crossbow"
+  }
+}

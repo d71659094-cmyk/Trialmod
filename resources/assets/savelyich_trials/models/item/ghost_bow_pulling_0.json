@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/bow",
+  "textures": {
+    "layer0": "savelyich_trials:item/ghost_bow_pulling_0"
+  }
+}

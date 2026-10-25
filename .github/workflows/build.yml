@@ -19,15 +19,38 @@ jobs:
           java-version: '17'
           cache: gradle
 
+      - name: Unzip project
+        run: |
+          unzip -o trialmod.zip -d unpacked
+          echo "=== Содержимое корня распакованного проекта ==="
+          ls -la unpacked
+
+      # Пытаемся определить, лежит ли проект в подпапке
+      - name: Find Gradle Root
+        id: find_root
+        run: |
+          if [ -f "unpacked/gradlew" ]; then
+            echo "ROOT_DIR=unpacked" >> $GITHUB_ENV
+            echo "Нашли gradlew прямо в unpacked"
+          elif [ -f "unpacked/trialmod/gradlew" ]; then
+            echo "ROOT_DIR=unpacked/trialmod" >> $GITHUB_ENV
+            echo "Нашли gradlew в unpacked/trialmod"
+          else
+            echo "ОШИБКА: gradlew не найден!"
+            exit 1
+          fi
+
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x ${{ env.ROOT_DIR }}/gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon --stacktrace
+        run: |
+          cd ${{ env.ROOT_DIR }}
+          ./gradlew build --no-daemon --stacktrace
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
           name: trialmod-jar
-          path: build/libs/*.jar
+          path: ${{ env.ROOT_DIR }}/build/libs/*.jar
           if-no-files-found: error
